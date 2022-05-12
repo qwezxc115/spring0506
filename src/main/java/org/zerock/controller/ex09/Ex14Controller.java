@@ -1,11 +1,14 @@
 package org.zerock.controller.ex09;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.ex01.CustomerDto;
 import org.zerock.domain.ex01.EmployeeDto;
@@ -90,8 +93,14 @@ public class Ex14Controller {
 		return "redirect:/ex14/sub05";
 	}
 	
+	@GetMapping("sub06")
+	public void method07() {
+		
+	}
+	
+	/* 직원 등록*/
 	@PostMapping("sub06")
-	public String method07(EmployeeDto employee, RedirectAttributes rttr) {
+	public String method08(EmployeeDto employee, RedirectAttributes rttr) {
 		
 		boolean ok = service.addEmployee(employee);
 		
@@ -102,6 +111,32 @@ public class Ex14Controller {
 		}
 		
 		return "redirect:/ex14/sub06";
+	}
+	
+	@GetMapping("sub07")
+	public void method09(Model model) {
+		List<EmployeeDto> list = service.listEmployee();
+		
+		model.addAttribute("employees", list);
+	}
+
+	// 고객 목록 조회 코드 작성
+	@GetMapping("sub08")
+	public void method08(Model model) {
+		List<CustomerDto> list = service.listCustomer();
+		
+		model.addAttribute("customers", list);
+	}
+	
+	// /ex14/sub09
+	@GetMapping("sub09")
+	public void method10(@RequestParam(name = "page", defaultValue="1")int page, Model model) {
+		
+		int rowPerPage = 5;
+		
+		List<CustomerDto> list = service.listCustomerPage(page, rowPerPage);
+		
+		model.addAttribute("customers", list);
 	}
 }
 

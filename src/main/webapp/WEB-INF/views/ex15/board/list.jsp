@@ -12,17 +12,50 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h1>${message }</h1>
-	<h1>새 직원 입력</h1>
-	<form action="${pageContext.request.contextPath }/ex14/sub06" method="post">
-	LastName : <input type="text" name="lastName" value="Seokjin"/><br />
-	FirstName : <input type="text" name="firstName" value="Choi"/><br />
-	BirthDate : <input type="text" name="birthDate" value="1997-03-08"/><br />
-	Photo : <input type="text" name="photo" value="EmpID11.pic"/><br />
-	Notes : <input type="text" name="notes" value="Suwon"/><br />
-	<button>등록</button>
-	</form>
+	<h1>글 목록</h1>
 	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>title</th>
+				<th>inserted</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${boardList }" var="board">
+				<tr>
+					<td>${board.id }</td>
+					<td>
+					
+					<c:url value="/ex15/board/${board.id }" var="link"></c:url>
+					
+					<a href="${link }">
+						${board.title }
+					</a>
+					
+					</td>
+					<td>${board.inserted }</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
